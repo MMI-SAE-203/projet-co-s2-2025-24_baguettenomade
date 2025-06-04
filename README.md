@@ -3,7 +3,7 @@
 
 Éléménts à renseigner pour la soutenance :
 
-- [ ] Nom du projet :
+- [ ] Nom du projet : La Baguette Nomade
 - [ ] URL de la landing page :
 - [ ] URL de l'application finale :
 - [ ] URL de connexion au back office :
@@ -14,9 +14,8 @@
 
 ## 🚀 Équipe
 
-| Étudiants    | Prénom NOM  |
-| :----------- | :---------- |
-| Étudiant 1   | à compléter |
-| Étudiant 2   | à compléter |
-| Étudiant 3   | à compléter |
-| (Étudiant 4) | à compléter |
+| Étudiants    | Prénom NOM   |
+| :----------- | :----------  |
+| Étudiant 1   | Noëlie Ahuir |
+| Étudiant 2   | Evan Gay     |
+| Étudiant 3   | Ugo Lippi    |
