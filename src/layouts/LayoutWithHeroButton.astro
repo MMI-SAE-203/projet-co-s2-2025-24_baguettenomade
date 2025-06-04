@@ -1,0 +1,34 @@
+---
+import Layout from "./Layout.astro";
+import { Picture } from 'astro:assets';
+
+const { title, src, alt, heroButton = null } = Astro.props;
+---
+
+<Layout title={title}>
+  <div class="relative">
+    <Picture
+      pictureAttributes={{ class: `w-full h-auto object-cover` }}
+      class="w-full"
+      formats={['avif', 'webp']}
+      widths={[540, 1024, src.width]}
+      sizes={`(max-width: 540px) 540px, (max-width: 1024px) 1024px, ${src.width}px`}
+      src={src}
+      alt={alt}
+      loading="lazy"
+    />
+    <div class="absolute inset-0 flex flex-col items-start justify-center pl-12 pb-52 text-left z-0">
+      <h1 class="text-center max-w-[500px] text-white text-2xl lg:text-4xl font-display font-bold drop-shadow-lg mb-6">{title}</h1>
+      {heroButton && (
+        <div class="flex justify-center">
+            <a href={heroButton.href} class="bg-[#92400E] hover:bg-[#d9a652] text-white font-semibold px-6 py-3 mx-32 rounded-md text-lg transition">
+              {heroButton.label}
+            </a>
+        </div>
+      )}
+    </div>
+  </div>
+  <main>
+    <slot />
+  </main>
+</Layout>
