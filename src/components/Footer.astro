@@ -1,0 +1,68 @@
+---
+import LogoFooter from '../assets/icons/logo.svg';
+import IconFacebook from '../assets/icons/facebook.svg';
+import IconInstagram from '../assets/icons/instagram.svg';
+import IconTwitter from '../assets/icons/twitter.svg';
+import IconTikTok from '../assets/icons/tiktok.svg';
+---
+
+<footer class="bg-[#FFE76A] py-12 px-6">
+  <div class="container mx-auto">
+    <div class="grid grid-cols-6 gap-8 items-start">
+      <!-- Logo Section -->
+      <div class="col-span-1">
+        <LogoFooter style="filter: brightness(0) saturate(100%);"/>
+      </div>
+
+      <!-- Accueil Section -->
+      <div class="col-span-1">
+        <h3 class="text-lg font-semibold text-black"><a href="/accueil">Accueil</a></h3>
+      </div>
+
+      <!-- Les Boulangeries Section -->
+      <div class="col-span-1">
+        <h3 class="text-lg font-semibold text-black mb-4">Les Boulangeries</h3>
+        <ul class="space-y-2">
+          <li><a href="/produits" class="text-black hover:text-gray-700">Boulangerie</a></li>
+          <li><a href="/gaspi" class="text-black hover:text-gray-700">Panier anti gaspi</a></li>
+        </ul>
+      </div>
+
+      <!-- Aspects légaux Section -->
+      <div class="col-span-1">
+        <h3 class="text-lg font-semibold text-black mb-4">Aspects légaux</h3>
+        <ul class="space-y-2">
+          <li><a href="/apropos" class="text-black hover:text-gray-700">À Propos</a></li>
+          <li><a href="/legales" class="text-black hover:text-gray-700">Mentions Légales</a></li>
+        </ul>
+      </div>
+
+      <!-- Nous contacter Section -->
+      <div class="col-span-1">
+        <h3 class="text-lg font-semibold text-black mb-4">Nous contacter</h3>
+        <ul class="space-y-2">
+          <li><a href="/contact" class="text-black hover:text-gray-700">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Nous suivre Section -->
+      <div class="col-span-1">
+        <h3 class="text-lg font-semibold text-black mb-4">Nous suivre</h3>
+        <div class="flex space-x-3">
+          <a href="https://twitter.com" aria-label="twitter">
+            <IconTwitter/>
+          </a>
+          <a href="https://instagram.com" aria-label="instagram">
+            <IconInstagram/>
+          </a>
+          <a href="https://facebook.com" aria-label="facebook">
+            <IconFacebook/>
+          </a>
+          <a href="https://tiktok.com" aria-label="facebook">
+            <IconTikTok/>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
