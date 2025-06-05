@@ -1,8 +1,61 @@
 ---
 import LayoutWithHeroButton from '../layouts/LayoutWithHeroButton.astro';
 import Hero from '../assets/img/hero2.webp';
+import PanierOsier from '../assets/img/panierpain.webp';
+import Panier from '../assets/img/panier-gaspi.webp';
+import PainCoeur from '../assets/img/paincoeur.webp';
+import Baguette from '../assets/img/baguette-dessin.webp';
+import Paiement from '../assets/img/paiement.webp';
+import Camion from '../assets/img/camion.webp';
+import { Picture } from 'astro:assets';
 ---
 
 <LayoutWithHeroButton title="Bienvenue chez Baguette Nomade" src={Hero} alt="Pain frais" heroButton={{ label: "Commencer ses courses", href: "/produits" }}>
+    <section class="container mx-auto px-4 py-12">
+  <!-- Nos Produits -->
+  <h2 class="text-center text-base tracking-widest mb-8">Nos Produits</h2>
+  <div class="grid grid-cols-2 gap-12 mb-20">
+    <div class="flex flex-col items-center">
+      <p class="mb-4 text-center max-w-xs">
+        Découvrez nos délicieuses créations boulangères, que vous soyez chez vous ou en déplacement. Nos produits de qualité et sélectionnés localement apportent tradition à votre porte.
+      </p>
+      <Picture src={PanierOsier} alt="Paniers de pain" class="w-48 h-48 rounded-2xl shadow-lg object-cover" />
+    </div>
+    <div class="flex flex-col items-center">
+      <p class="mb-4 text-center max-w-xs">
+        Prêt à gaspiller chez nous, aidons nos boulangers ! Retrouvez ici le panier anti-gaspi de la semaine, réalisé en circuit-court : profitez-en et profitez de ces délicieuses invendus croûtés.
+      </p>
+      <Picture src={Panier} alt="Panier anti-gaspi" class="w-48 h-48 rounded-2xl shadow-lg object-cover" />
+    </div>
+  </div>
 
+  <!-- Grande image centrale -->
+  <div class="flex justify-center mb-20">
+    <Picture src={PainCoeur} alt="Pain coeur" class="rounded-xl object-cover w-[900px] h-auto" />
+  </div>
+
+  <!-- Nos Valeurs -->
+  <h2 class="text-center text-base tracking-widest mb-8">Nos Valeurs</h2>
+  <div class="grid grid-cols-3 gap-12 mb-20">
+    <div class="flex flex-col items-center text-center">
+      <Picture src={Baguette} alt="Baguette" class="w-10 h-10 mb-2" />
+      <p class="text-lg">
+        Frais, délicieux et abordables : Nos produits de boulangerie de qualité, préparés avec amour, sont livrés frais à votre porte, sans vous ruiner.
+      </p>
+    </div>
+    <div class="flex flex-col items-center text-center">
+      <Picture src={Paiement} alt="Paiement" class="w-10 h-10 mb-2" />
+      <p class="text-lg">
+        Paiement en toute confiance : Notre processus de paiement est simple, rapide et sécurisé, pour vous garantir une expérience d'achat sans souci.
+      </p>
+    </div>
+    <div class="flex flex-col items-center text-center">
+      <Picture src={Camion} alt="Camion" class="w-10 h-10 mb-2" />
+      <p class="text-lg">
+        Livraison rapide et pratique : Vos commandes sont livrées dès le lendemain, pour que vous puissiez savourer nos produits frais le plus tôt possible.
+      </p>
+    </div>
+  </div>
+</section>
 </LayoutWithHeroButton>
+

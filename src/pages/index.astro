@@ -1,8 +1,106 @@
 ---
 import LayoutWithHeroButton from '../layouts/LayoutWithHeroButton.astro';
 import Hero from '../assets/img/hero2.webp';
+import Paiement from '../assets/img/paiement.webp';
+import Camion from '../assets/img/camion.webp';
+import PanierOsier from '../assets/img/panierpain.webp';
+import Baguette from '../assets/img/baguette-dessin.webp';
+import Gaspi from '../assets/img/panier-gaspi.webp';
+import Baguette2 from '../assets/img/baguette-black.webp';
+import Internet from '../assets/img/internet.webp';
+import Etoile from '../assets/img/star.webp';
+import Coeur from '../assets/img/heart.webp';
+import PainCoeur from '../assets/img/paincoeur.webp';
+import { Picture } from 'astro:assets';
 ---
 
 <LayoutWithHeroButton title="Bienvenue chez Baguette Nomade" src={Hero} alt="Pain frais" heroButton={{ label: "Explorer Nos Service", href: "/accueil" }}>
+  <section class="container mx-auto px-4 py-12">
+    <div class="grid grid-col grid-cols-2 gap-8 items-center mb-16">
+      <Picture src={PanierOsier} alt="Paniers de pain" class="w-full rounded-xl object-cover" />
+      <div class="flex-1">
+        <h2 class="text-2xl font-bold mb-2">Le Boulangerie de Baguette Nomade</h2>
+        <p class="mb-4 pt-8 pb-8">Découvrez les délicieuses créations boulangères de notre partenaire du trimestre, que vous soyez chez vous ou en déplacement. Notre boulangerie partenaire, apporte la tradition à votre porte.</p>
+        <a href="/produits" class="bg-[#7c5a47] text-white px-6 py-2 rounded-md font-semibold">Voir nos produits</a>
+        <p class="mb-4 pt-10">Grâce aux paniers anti-gaspi de Baguette Nomade, découvré de nouveaux produits tout en faisant un geste pour la planète!</p>
+      </div>
+    </div>
 
+    <div class="mb-16">
+      <h2 class="text-2xl font-bold mb-8">Nos Valeurs</h2>
+      <div class="grid grid-cols-2 grid-span-2 gap-8 items-center">
+        <div class="flex-1 flex flex-col items-center text-center">
+          <Picture/ src={Paiement} alt="Panier" class="w-12 h-12 mb-2" />
+          <p class="mt-2 pb-8">Paiement en toute confiance : Notre processus de paiement est simple, rapide et sécurisé, pour vous garantir une expérience d'achat sans souci.</p>
+        </div>
+        <div class="flex-1 flex flex-col items-center text-center">
+          <Picture/ src={Camion} alt="Panier" class="w-12 h-12 mb-2" />
+          <p class="mt-2 pb-8">Livraison rapide et pratique : Vos commandes sont livrées dès le lendemain, pour que vous puissiez savourer vos produits frais le plus tôt possible.</p>
+        </div>
+        <div class="flex-1 flex flex-col items-center text-center">
+          <Picture/ src={Baguette} alt="Panier" class="w-12 h-12 mb-2" />
+          <p class="mt-2 pb_8">Frais, délicieux et abordables : Nous vous proposons des produits de boulangerie de qualité, préparés avec amour et livrés frais à votre porte, sans vous ruiner.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-col grid-cols-2 gap-8 items-center mb-16">
+      <Picture src={Gaspi} alt="Panier anti-gaspi" class="w-full rounded-xl object-cover" />
+      <div class="flex-1">
+        <h2 class="text-2xl font-bold mb-2">Réduisez le gaspillage avec Baguette Nomade</h2>
+        <p class="mb-4 pt-8 pb-8">Chez Baguette Nomade, nous nous engageons à réduire le gaspillage alimentaire. Découvrez nos paniers surprises composés de délicieux produits invendus à prix réduits. Une manière simple et savoureuse de contribuer à un monde plus durable.</p>
+        <a href="/produits" class="bg-[#7c5a47] text-white px-6 py-2 rounded-md font-semibold">Voir nos produits</a>
+        <p class="mb-4 pt-8 pb-8">Grâce aux paniers anti-gaspi de Baguette Nomade, découvré de nouveaux produits tout en faisant un geste pour la planète!</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-4 grid-row-2 gap-8 items-center justify-center mb-16">
+      <div class="grid col-start-1 items-center text-center">
+        <Picture/ src={Baguette2} alt="Panier" class="w-12 h-12 mb-2"/>
+        <h3 class="pb-6">Pain de la semaine</h3>
+        <p>Grâce aux paniers anti-gaspi de Baguette Nomade, je peux découvrir de nouveaux produits tout en faisant un geste pour la planète. Une initiative que je recommande à tous!</p>
+      </div>
+      <div class="grid col-start-2 row-start-2 items-center text-center">
+        <Picture/ src={Internet} alt="Panier" class="w-12 h-12 mb-2" />
+        <h3 class="pb-6">Commande en Ligne</h3>
+        <p>Passez vos commandes en ligne et récupérez-les à votre convenance.</p>
+      </div>
+      <div class="grid col-start-3 items-center text-center">
+        <Picture/ src={Etoile} alt="Panier" class="w-12 h-12 mb-2" />
+        <h3 class="pb-6">Qualité Artisanale</h3>
+        <p>Fréquemment commandés par les habitants du quartier.</p>
+      </div>
+      <div class="grid col-start-4 row-start-2 items-center text-center">
+        <Picture/ src={Coeur} alt="Panier" class="w-12 h-12 mb-2" />
+        <h3 class="pb-6">Engagement Communautaire</h3>
+        <p>Nous soutenons notre communauté locale avec des ingrédients de proximité.</p>
+      </div>
+    </div>
+
+    <div class="w-full flex justify-center mb-16">
+      <Picture src={PainCoeur} alt="Pain coeur" class="rounded-xl w-full max-w-lg object-cover" />
+    </div>
+  </section>
+
+  <section class="bg-[#7c5a47] text-white py-16 px-6 md:px-20 rounded-t-2xl mb-0">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-12 md:gap-0 justify-between">
+      <div>
+        <div class="text-[#ffe76a] text-sm mb-2">Contactez baguette Nomade</div>
+        <p class="text-3xl md:text-4xl font-bold leading-snug mb-8 pb-20">Des Questions, ou commandes spéciales?</p>
+        <div class="mb-1">Mardi-Samedi, de 7:00 à 19:00</div>
+        <div class="text-[#ffe76a] text-sm">Nous sommes disponible pour vous répondre</div>
+      </div>
+
+      <div class="flex flex-col gap-10 justify-between">
+        <div>
+          <div class="text-[#ffe76a] text-sm mb-1">Envoyez-nous un Message</div>
+          <div class="tracking-wide font-semibold">labaguettenomade@gmail.com</div>
+        </div>
+        <div>
+          <div class="text-[#ffe76a] text-sm mb-1">Follow us</div>
+          <div class="tracking-wide font-semibold">Instagram Facebook Tiktok Twitter</div>
+        </div>
+      </div>
+    </div>
+  </section>
 </LayoutWithHeroButton>

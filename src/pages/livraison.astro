@@ -1,0 +1,51 @@
+---
+import Layout from '../layouts/LayoutWithHero.astro';
+import Hero from '../assets/img/hero.webp';
+---
+
+<Layout title="Livraison" src={Hero} alt="Livraison">
+  <section class="flex justify-center items-center min-h-screen bg-[#faf0e2]">
+    <div class="rounded-2xl border border-blue-400 p-8 w-full max-w-3xl bg-[#faf0e2]">
+      <div class="border-2 border-blue-400 rounded-lg p-6 mb-8">
+        <h2 class="text-2xl font-bold mb-2">Jour de livraison <span class="font-normal text-base">( sur la semaine )</span></h2>
+        <div class="flex flex-wrap gap-4 mt-8">
+          <button type="button" class="bg-[#7c5a47] text-white px-8 py-2 rounded-md font-semibold" data-jour="Demain">Demain</button>
+          <button type="button" class="bg-[#7c5a47] text-white px-8 py-2 rounded-md font-semibold" data-jour="Vendredi">Vendredi</button>
+          <button type="button" class="bg-[#7c5a47] text-white px-8 py-2 rounded-md font-semibold" data-jour="Samedi">Samedi</button>
+          <button type="button" class="bg-[#7c5a47] text-white px-8 py-2 rounded-md font-semibold" data-jour="Mardi">Mardi</button>
+          <button type="button" class="bg-[#7c5a47] text-white px-8 py-2 rounded-md font-semibold" data-jour="Mercredi">Mercredi</button>
+          <button type="button" class="bg-[#7c5a47] text-white px-8 py-2 rounded-md font-semibold" data-jour="Jeudi">Jeudi</button>
+        </div>
+      </div>
+      <div class="flex justify-center">
+        <button id="payer-btn" class="bg-[#7c5a47] text-white px-12 py-3 rounded-md font-semibold text-lg mt-2">
+          Payer Ma commande
+        </button>
+      </div>
+      <div class="flex justify-center mt-8 gap-2">
+        <span class="w-4 h-4 rounded-full bg-[#cbb89e] inline-block"></span>
+        <span class="w-4 h-4 rounded-full bg-[#cbb89e] inline-block"></span>
+        <span class="w-4 h-4 rounded-full bg-[#cbb89e] opacity-50 inline-block"></span>
+      </div>
+    </div>
+  </section>
+  <script type="module" is:inline>
+    let jourChoisi = null;
+    document.querySelectorAll('[data-jour]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        jourChoisi = btn.getAttribute('data-jour');
+        document.querySelectorAll('[data-jour]').forEach(b => b.classList.remove('ring-4', 'ring-[#7c5a47]'));
+        btn.classList.add('ring-4', 'ring-[#7c5a47]');
+      });
+    });
+
+    document.getElementById('payer-btn').addEventListener('click', () => {
+      if (!jourChoisi) {
+        alert("Veuillez choisir un jour de livraison.");
+        return;
+      }
+      localStorage.setItem('livraison', JSON.stringify({ jour: jourChoisi }));
+      window.location.href = '/paiement';
+    });
+  </script>
+</Layout>

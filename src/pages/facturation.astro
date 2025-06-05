@@ -1,0 +1,94 @@
+---
+import Layout from '../layouts/LayoutWithHero.astro';
+import Hero from '../assets/img/hero.webp';
+import Panier from '../assets/icons/panier.svg';
+---
+
+<Layout title="Facturation" src={Hero} alt="Facturation">
+  <section class="flex justify-center items-center min-h-screen bg-[#faf0e2]">
+    <div class="rounded-2xl border border-blue-400 p-8 w-full max-w-2xl bg-[#faf0e2]">
+      <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+        Résumé du Panier
+        <Panier/>
+      </h2>
+      <div id="recap-panier" class="flex gap-6 mb-2"></div>
+      <button type="button" onclick="window.location.href='/produits'" class="bg-[#7c5a47] text-white px-4 py-2 rounded-md mb-8">
+        + Ajouter d'autres produits
+      </button>
+
+      <h2 class="text-2xl font-bold mb-4 mt-8">Détails de Facturation</h2>
+      <form id="facturation-form" class="flex flex-col gap-6">
+        <div class="flex gap-4">
+          <div class="flex-1">
+            <label>Nom :</label>
+            <input type="text" id="nom" class="bg-[#ffe37a] rounded px-2 py-1 w-full" required />
+          </div>
+          <div class="flex-1">
+            <label>Prénom :</label>
+            <input type="text" id="prenom" class="bg-[#ffe37a] rounded px-2 py-1 w-full" required />
+          </div>
+        </div>
+        <div>
+          <label>Adresse :</label>
+          <input type="text" id="adresse" class="bg-[#ffe37a] rounded px-2 py-1 w-full" required />
+        </div>
+        <div class="flex gap-4 items-center">
+          <div class="flex-1">
+            <label>Ville :</label>
+            <input type="text" id="ville" class="bg-[#ffe37a] rounded px-2 py-1 w-full" required />
+          </div>
+          <div class="flex-1">
+            <label>Code Postale :</label>
+            <input type="text" id="cp" class="bg-[#ffe37a] rounded px-2 py-1 w-full" required />
+          </div>
+          <button type="button" id="save-adresse" class="bg-[#7c5a47] text-white px-4 py-2 rounded-md h-10 mt-6 ml-2">
+            Enregistrer cette Adresse
+          </button>
+        </div>
+        <button type="submit" class="bg-[#7c5a47] text-white px-8 py-3 rounded-md font-semibold w-full mt-6 text-lg">
+          Continuer ma commande
+        </button>
+      </form>
+      <div class="flex justify-center mt-6 gap-2">
+        <span class="w-4 h-4 rounded-full bg-[#cbb89e] inline-block"></span>
+        <span class="w-4 h-4 rounded-full bg-[#cbb89e] inline-block"></span>
+        <span class="w-4 h-4 rounded-full bg-[#cbb89e] opacity-50 inline-block"></span>
+      </div>
+    </div>
+  </section>
+  <script type="module" is:inline>
+    // Affiche le récap du panier
+    const panier = JSON.parse(localStorage.getItem('panier') || '[]');
+    const recap = document.getElementById('recap-panier');
+    recap.innerHTML = panier.map(item => `
+      <div class="flex flex-col items-center">
+        <img src="${item.imgUrl}" alt="${item.nom}" class="w-20 h-20 rounded-xl object-cover" />
+        <div class="text-center">${item.prix}€</div>
+        <div class="flex items-center gap-2 mt-1">
+          <button type="button" disabled style="opacity:.5;">–</button>
+          <span>${item.quantite}</span>
+          <button type="button" disabled style="opacity:.5;">+</button>
+        </div>
+      </div>
+    `).join('');
+
+    // Enregistrer l'adresse (optionnel, ici juste une notification)
+    document.getElementById('save-adresse').addEventListener('click', (e) => {
+      e.preventDefault();
+      alert("Adresse enregistrée !");
+    });
+
+    // Soumission du formulaire
+    document.getElementById('facturation-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      localStorage.setItem('facturation', JSON.stringify({
+        nom: document.getElementById('nom').value,
+        prenom: document.getElementById('prenom').value,
+        adresse: document.getElementById('adresse').value,
+        ville: document.getElementById('ville').value,
+        cp: document.getElementById('cp').value
+      }));
+      window.location.href = '/livraison';
+    });
+  </script>
+</Layout>

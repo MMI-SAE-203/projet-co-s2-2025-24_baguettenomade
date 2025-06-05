@@ -1,0 +1,79 @@
+---
+import LayoutWithHero from '../layouts/LayoutWithHero.astro';
+import Hero from '../assets/img/hero.webp';
+---
+
+<LayoutWithHero title="Paiement" src={Hero} alt="">
+  <section class="container mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold mb-8">Paiement</h1>
+    <div id="recap-panier" class="mb-8 flex gap-6"></div>
+    <form id="paiement-form" class="max-w-lg mx-auto flex flex-col gap-4">
+      <div id="card-container" class="mb-4"></div>
+      <button type="submit" id="payer-btn" class="bg-[#8B6B36] text-white px-6 py-2 rounded-md font-semibold w-full">
+        Payer
+      </button>
+    </form>
+    <div id="paiement-message" class="mt-4 text-center"></div>
+  </section>
+
+  <!-- SDK Square (sandbox) -->
+  <script src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
+  <script type="module" is:inline>
+  // Récupère le panier et les infos utilisateur
+  const panier = JSON.parse(localStorage.getItem('panier') || '[]');
+  const facturation = JSON.parse(localStorage.getItem('facturation') || '{}');
+  const livraison = JSON.parse(localStorage.getItem('livraison') || '{}');
+  const utilisateur = `${facturation.nom || ''} ${facturation.prenom || ''}`.trim();
+
+  // Initialisation Square
+  let payments, card;
+  async function initializeSquare() {
+    payments = window.Square.payments('sandbox-sq0idb--DtelReLarWdRPUdJUItOQ', 'sandbox');
+    card = await payments.card();
+    await card.attach('#card-container');
+  }
+  initializeSquare();
+
+  document.getElementById('paiement-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    document.getElementById('payer-btn').disabled = true;
+    document.getElementById('paiement-message').textContent = "Paiement en cours...";
+
+    try {
+      const result = await card.tokenize();
+      if (result.status !== 'OK') {
+        document.getElementById('paiement-message').textContent = "Erreur de paiement";
+        document.getElementById('payer-btn').disabled = false;
+        return;
+      }
+
+      const res = await fetch('/api/commande', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          utilisateur,
+          statut: 'payée',
+          panier,
+          facturation,
+          livraison,
+          paymentToken: result.token
+        })
+      });
+
+      if (res.ok) {
+        document.getElementById('paiement-message').textContent = "Commande enregistrée et payée !";
+        localStorage.removeItem('panier');
+        localStorage.removeItem('facturation');
+        localStorage.removeItem('livraison');
+        window.location.href = '/accueil';
+      } else {
+        document.getElementById('paiement-message').textContent = "Erreur lors de la commande";
+        document.getElementById('payer-btn').disabled = false;
+      }
+    } catch (e) {
+      document.getElementById('paiement-message').textContent = "Erreur réseau ou serveur";
+      document.getElementById('payer-btn').disabled = false;
+      console.error(e);
+    }
+  });
+</script>
