@@ -1,0 +1,74 @@
+--- 
+import Logo from '../assets/icons/logo.svg';
+---
+
+<header class="flex items-center bg-[#FFE76A] justify-between px-4 gap-8 border-b-2 border-b-[#FFE76A] h-20">
+    <a href="/MMi">
+      <Logo />
+    </a>
+    <button
+      id="menu-btn"
+      class="group relative z-10 flex h-3 w-6 flex-col justify-between lg:hidden *:block *:ease *:h-0.5 *:w-full *:transform *:rounded-full *:bg-white *:transition *:duration-300"
+      aria-label="Menu"
+      aria-controls="menu"
+      aria-expanded="false"
+    >
+      <span class="group-aria-expanded:translate-y-[5px] group-aria-expanded:rotate-45"></span>
+      <span class="group-aria-expanded:-translate-y-[5px] group-aria-expanded:invisible"></span>
+      <span class="group-aria-expanded:-translate-y-[5px] group-aria-expanded:-rotate-45"></span>
+    </button>
+    <nav
+      id="menu"
+      class="flex-1 px-6 py-12 flex justify-between mt-20 flex-col fixed z-10 inset-0 bg-[#FFE76A] visible opacity-100 max-lg:aria-hidden:invisible max-lg:aria-hidden:opacity-0 lg:mt-0 lg:flex-row lg:static lg:bg-transparent lg:py-6 lg:visible lg:text-sm lg:font-bold lg:items-center lg:tracking-wide lg:opacity-100"
+      aria-hidden="true"
+    >
+      <ul class="flex flex-col gap-4 lg:flex-row">
+        <li>
+          <a class="block p-4 rounded-lg text-black" href="/accueil">Accueil</a>
+        </li>
+        <li>
+          <a class="block p-4 rounded-lg text-black" href="/produits">Boulangerie</a>
+        </li>
+        <li>
+          <a class="block p-4 rounded-lg text-black" href="/gaspi">Paniers anti-gaspi</a>
+        </li>
+        <li>
+          <a class="block p-4 rounded-lg text-black"href="/contact">Contact</a>
+        </li>
+        <li>
+          <a class="block p-4 rounded-lg text-black" href="/apropos">A propos</a>
+        </li>
+      </ul>
+    </nav>
+    <form class="hidden lg:flex items-center bg-white rounded-lg px-4 py-2 w-[400px] ml-8 shadow">
+      <img src="src/assets/icons/search-black.svg" alt="loupe de recherche"/>
+      <input type="text" placeholder="recherche" class="bg-transparent outline-none flex-1 text-gray-700 placeholder:text-gray-400" />
+    </form>
+    <div class="flex items-center gap-6 ml-4">
+      <a href="/compte" aria-label="Compte utilisateur">
+        <img src="src/assets/icons/personne.svg" alt="Icône de compte utilisateur"/>
+      </a>
+      <a href="/panier" aria-label="Panier">
+        <img src="src/assets/icons/panier.svg" alt="Icône de panier d'achat"/>
+      </a>
+    </div>
+  </header>
+  
+  <script>
+    // On cible les éléments à modifier
+    const toggle = document.querySelector("#menu-btn");
+    const nav = document.querySelector("#menu");
+    const page = document.body;
+  
+    // Vérifier si les éléments existent avant d'ajouter l'événement
+    if (toggle && nav) {
+      toggle.addEventListener("click", () => {
+        const isOpen = toggle.ariaExpanded === "true";
+        const isClosed = !isOpen;
+        // Mise à jour des attributs ARIA pour accessibilité
+        toggle.ariaExpanded = String(isClosed);
+        nav.ariaHidden = String(isOpen);
+        page.classList.toggle("noscroll", isClosed);
+      });
+    }
+  </script>
