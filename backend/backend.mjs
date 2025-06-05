@@ -42,37 +42,14 @@ export async function filterByCategory(categorie) {
     }
 }
 
-export async function createCommande({ utilisateur, statut = "en cours", panier }) {
+export async function createCommande({ utilisateur, statut = "en cours", panier, facturation, livraison, paymentToken }) {
     return await pb.collection('commandes').create({
         utilisateur,
         date: new Date().toISOString(),
         statut,
-        panier
+        panier,
+        facturation,
+        livraison,
+        paymentToken
     });
-}
-
-// Commande : ajouter ou mettre à jour la quantité pour un produit (et un utilisateur si besoin)
-export async function addOrUpdateCommande(produitId, quantite, userId = null) {
-    // On suppose une collection 'commandes' avec les champs : produit, quantite, user (optionnel)
-    let filter = `produit = "${produitId}"`;
-    if (userId) filter += ` && user = "${userId}"`;
-    const commandes = await pb.collection('commandes').getFullList({ filter, perPage: 1 });
-    if (commandes.length > 0) {
-        // Mise à jour
-        return await pb.collection('commandes').update(commandes[0].id, { quantite });
-    } else {
-        // Création
-        return await pb.collection('commandes').create({ produit: produitId, quantite, ...(userId && { user: userId }) });
-    }
-}
-
-// Commande : supprimer une commande pour un produit (et un utilisateur si besoin)
-export async function removeCommande(produitId, userId = null) {
-    let filter = `produit = "${produitId}"`;
-    if (userId) filter += ` && user = "${userId}"`;
-    const commandes = await pb.collection('commandes').getFullList({ filter, perPage: 1 });
-    if (commandes.length > 0) {
-        return await pb.collection('commandes').delete(commandes[0].id);
-    }
-    return null;
 }
