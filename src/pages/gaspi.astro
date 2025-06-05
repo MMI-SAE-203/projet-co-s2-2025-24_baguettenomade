@@ -1,0 +1,43 @@
+---
+import LayoutWithHero from '../layouts/LayoutWithHero.astro';
+import Hero from '../assets/img/hero.webp';
+import Pain1 from '../assets/img/petitpanier.webp';
+import PanierOsier from '../assets/img/panier-gaspi.webp';
+import PanierPain from '../assets/img/panierpain.webp';
+import GaspiIcon from '../assets/img/poubelle.webp';
+import { Picture } from 'astro:assets';
+---
+
+<LayoutWithHero title="Bienvenue chez Baguette Nomade" src={Hero} alt="Pain frais">
+  <section class="container mx-auto px-4 py-12">
+    <h2 class="text-xl font-semibold mb-4 tracking-widest">Gaspillage du pain par an:</h2>
+    <div class="flex items-center gap-4 mb-8">
+      <Picture src={GaspiIcon} alt="Gaspillage" class="w-8 h-8" />
+      <span class="text-[#e0ab5b] text-base font-medium">
+        Environ 3 tonnes de gaspillage dans chaque boulangerie traditionnelle
+      </span>
+    </div>
+
+    <!-- Texte explicatif -->
+    <p class="mb-12 text-center max-w-3xl mx-auto tracking-wide leading-relaxed text-[15px]">
+      Participez à la lutte contre le gaspillage alimentaire en adoptant nos paniers anti-gaspi ! En récupérant ces assortiments de produits invendus mais encore parfaitement consommables, vous contribuez à réduire le gaspillage de pain et d'autres aliments. C'est une solution économique et écologique qui permet de sauver des denrées délicieuses tout en faisant des économies. Ensemble, nous pouvons faire une réelle différence pour notre planète et nos communautés. N'hésitez pas à vous renseigner sur nos points de collecte et à partager cette initiative autour de vous !
+    </p>
+
+    <h3 class="text-center text-2xl font-semibold text-[#e0ab5b] mb-8 tracking-widest">A vous de jouer!</h3>
+
+    <div class="flex flex-row justify-center gap-12 mb-4">
+      <div class="flex flex-col items-center">
+        <Picture src={Pain1} alt="Pain anti-gaspi" class="w-36 h-36 rounded-2xl object-cover mb-2 shadow" />
+        <span class="text-sm font-semibold mt-2">2.00€</span>
+      </div>
+      <div class="flex flex-col items-center">
+        <Picture src={PanierOsier} alt="Panier osier" class="w-36 h-36 rounded-2xl object-cover mb-2 shadow" />
+        <span class="text-sm font-semibold mt-2">4.50€</span>
+      </div>
+      <div class="flex flex-col items-center">
+        <Picture src={PanierPain} alt="Panier pain" class="w-36 h-36 rounded-2xl object-cover mb-2 shadow" />
+        <span class="text-sm font-semibold mt-2">6.00€</span>
+      </div>
+    </div>
+  </section>
+</LayoutWithHero>
