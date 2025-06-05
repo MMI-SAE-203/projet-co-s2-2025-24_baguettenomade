@@ -4,17 +4,19 @@ const {... produit } = Astro.props;
 ---
 
 <article class="group col-span-1 grid grid-rows-[auto_auto_auto_1fr] gap-4 items-center text-center bg-white p-4 rounded-lg">
-  <div class="w-44 h-44 lg:w-64 lg:h-64 mx-auto rounded-3xl overflow-hidden">
-    <ImgPb
-      record={produit}
-      field="image"
-      alt={produit.nom}
-      classPicture="w-full h-full"
-      classImg="object-cover w-full h-full"
-    />
-  </div>
-  <h3 class="font-semibold text-black text-sm">{produit.nom}</h3>
-  <span class="text-sm font-normal text-black">{produit.prix}€</span>
+  <a href={`/produits/${produit.id}`} class="block w-full h-full">
+    <div class="w-44 h-44 lg:w-64 lg:h-64 mx-auto rounded-3xl overflow-hidden">
+      <ImgPb
+        record={produit}
+        field="image"
+        alt={produit.nom}
+        classPicture="w-full h-full"
+        classImg="object-cover w-full h-full"
+      />
+    </div>
+    <h3 class="font-semibold text-black text-sm">{produit.nom}</h3>
+    <span class="text-sm font-normal text-black">{produit.prix}€</span>
+  </a>
   <button class="bg-[#E4B062] hover:bg-[#d9a652] text-white px-2 py-2 rounded-md text-xs font-semibold uppercase tracking-wide transition-colors self-end min-w-[120px] w-fit mx-auto">
     + AJOUTER AU PANIER
   </button>
