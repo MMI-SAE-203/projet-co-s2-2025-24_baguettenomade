@@ -3,6 +3,8 @@ import LayoutWithHero from '../../layouts/LayoutWithHero.astro';
 import { AllProduits } from '../../../backend/backend.mjs';
 import CardProduits from '../../components/CardProduits.astro';
 import Produits from '../../assets/img/hero.webp';	
+import { Picture } from 'astro:assets';
+import paincoeur from '../../assets/img/paincoeur.webp';
 const produits = await AllProduits();
 ---
 
@@ -12,8 +14,8 @@ const produits = await AllProduits();
       <div class="max-w-md mx-auto">
         <div class="overflow-hidden shadow-lg rounded-lg">
           <div class="aspect-square relative">
-            <img 
-              src="src/assets/img/paincoeur.webp" 
+            <Picture 
+              src={paincoeur} 
               alt="Pain en forme de cœur" 
               class="w-full h-full object-cover"
             />
