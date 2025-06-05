@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Picture } from 'astro:assets';
+import Hero from '../assets/img/hero2.webp';
+---
+
+<Layout title="Mon Compte">
+  <div
+    class="relative min-h-screen flex items-center justify-center bg-cover bg-center"
+    style={`background-image: url('${Hero.src}');`}
+  >
+    <div class="bg-black/50 rounded-xl shadow-xl p-8 w-full max-w-xl mx-auto">
+      <h2 class="text-2xl font-bold text-[#ffe76a] mb-8">Créer Ton Compte</h2>
+      <form class="flex flex-col gap-4">
+        <div class="flex gap-4">
+          <input type="text" placeholder="Nom" class="flex-1 rounded-md px-4 py-2 bg-[#ffe76a] placeholder:text-gray-700" />
+          <input type="text" placeholder="Prénom" class="flex-1 rounded-md px-4 py-2 bg-[#ffe76a] placeholder:text-gray-700" />
+        </div>
+        <input type="email" placeholder="Email" class="rounded-md px-4 py-2 bg-[#ffe76a] placeholder:text-gray-700" />
+        <div class="flex gap-4">
+          <input type="password" placeholder="Mot de Passe" class="flex-1 rounded-md px-4 py-2 bg-[#ffe76a] placeholder:text-gray-700" />
+          <input type="password" placeholder="Confirmation du Mot de passe" class="flex-1 rounded-md px-4 py-2 bg-[#ffe76a] placeholder:text-gray-700" />
+        </div>
+        <button type="submit" class="bg-[#6E4C41] text-[#FFE76A] font-semibold rounded-md py-2 mt-2 mb-2 text-lg tracking-wide">Créer Ton Compte</button>
+        <div class="flex items-center gap-4 my-2">
+            <span class="flex-1 h-px bg-[#E0AB5B]"></span>
+            <span class="text-[#E0AB5B] font-semibold">or</span>
+            <span class="flex-1 h-px bg-[#E0AB5B]"></span>
+        </div>
+        <button type="button" class="bg-[#E0AB5B] text-black font-semibold rounded-md py-2 mb-2 text-lg tracking-wide">Facebook</button>
+        <button type="button" class="bg-[#6E4c41] text-[#ffe76a] font-semibold rounded-md py-2 text-lg tracking-wide">Google</button>
+      </form>
+    </div>
+  </div>
+</Layout>
