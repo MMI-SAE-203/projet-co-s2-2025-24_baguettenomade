@@ -2,8 +2,6 @@
 import Logo from '../assets/icons/logo.svg';
 import Utilisateurs from '../assets/icons/personne.svg';
 import Panier from '../assets/icons/panier.svg';
-import Recherche from '../assets/icons/search-black.svg';
-import Picture from 'astro/components/Picture.astro';
 ---
 
 <header class="flex items-center bg-[#FFE76A] justify-between px-4 gap-8 border-b-2 border-b-[#FFE76A] h-20">
@@ -45,7 +43,7 @@ import Picture from 'astro/components/Picture.astro';
       </ul>
     </nav>
     <form class="hidden lg:flex items-center bg-white rounded-lg px-4 py-2 w-[400px] ml-8 shadow">
-      <Picture src={Recherche} alt="loupe de recherche"/>
+      <img src="src/assets/icons/search-black.svg" alt="loupe de recherche"/>
       <input type="text" placeholder="recherche" class="bg-transparent outline-none flex-1 text-gray-700 placeholder:text-gray-400" />
     </form>
     <div class="flex items-center gap-6 ml-4">
