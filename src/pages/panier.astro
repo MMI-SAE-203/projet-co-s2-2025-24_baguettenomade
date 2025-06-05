@@ -1,0 +1,120 @@
+---
+import LayoutWithHero from '../layouts/LayoutWithHero.astro';
+import Produits from '../assets/img/hero.webp';
+let message = "";
+---
+
+<LayoutWithHero title="Votre panier" src={Produits} alt="">
+  <section class="container mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold mb-8 flex items-center gap-4">
+      <span>Votre Panier</span>
+      <span id="panier-count" class="bg-[#E4B062] text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">0</span>
+    </h1>
+    {message && <div class="mb-4 text-green-700">{message}</div>}
+    <div id="panier-zone"></div>
+    <a href="/paiement" class="bg-[#8B6B36] text-white px-6 py-2 rounded-md font-semibold mt-8 w-full block text-center">
+      Valider le panier
+    </a>
+  </section>
+
+  <script type="module" is:inline>
+    const LIVRAISON = 1.66;
+    function renderPanier() {
+      const panier = JSON.parse(localStorage.getItem('panier') || '[]');
+      const zone = document.getElementById('panier-zone');
+      const count = document.getElementById('panier-count');
+      let total = 0;
+      let totalProduits = 0;
+
+      count.textContent = panier.reduce((acc, item) => acc + item.quantite, 0);
+
+      if (panier.length === 0) {
+        zone.innerHTML = "<p class='text-lg text-gray-600'>Votre panier est vide.</p>";
+        return;
+      }
+
+      zone.innerHTML = `
+        <div class="flex flex-col md:flex-row gap-8">
+          <table class="w-full md:w-2/3 text-left mb-8 bg-[#fcf5ea] rounded-xl p-6">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Produit</th>
+                <th>Prix</th>
+                <th>Quantité</th>
+                <th>Sous-Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${panier.map(item => {
+                const itemTotal = Number(item.prix) * item.quantite;
+                total += itemTotal;
+                totalProduits += itemTotal;
+                return `
+                  <tr>
+                    <td>
+                      <img src="${item.imgUrl || ''}" alt="${item.nom}" class="w-16 h-16 rounded-xl object-cover" />
+                    </td>
+                    <td>${item.nom}</td>
+                    <td>${item.prix}€</td>
+                    <td>
+                      <button type="button" class="moins-qt" data-id="${item.id}">–</button>
+                      <span class="mx-2">${item.quantite}</span>
+                      <button type="button" class="plus-qt" data-id="${item.id}">+</button>
+                    </td>
+                    <td>${itemTotal.toFixed(2)}€</td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+          <div class="flex-1 flex flex-col gap-4">
+            <div class="bg-yellow-100 rounded-xl p-4 mb-4">
+              <label class="block mb-2 font-semibold">Code Promo</label>
+              <div class="flex gap-2">
+                <input type="text" class="rounded px-2 py-1 border flex-1" placeholder="Code Promo" disabled />
+                <button type="button" class="bg-[#E4B062] text-white px-3 rounded" disabled>+</button>
+              </div>
+            </div>
+            <div class="bg-yellow-200 rounded-xl p-4">
+              <div class="font-bold text-lg mb-2">Total Du Panier</div>
+              <div class="flex justify-between"><span>Produit :</span> <span>${totalProduits.toFixed(2)}€</span></div>
+              <div class="flex justify-between"><span>Livraison :</span> <span>${LIVRAISON.toFixed(2)}€</span></div>
+              <div class="flex justify-between font-bold text-xl mt-2"><span>Total :</span> <span>${(totalProduits + LIVRAISON).toFixed(2)}€</span></div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Gestion +/-
+      zone.querySelectorAll('.moins-qt').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-id');
+          let panier = JSON.parse(localStorage.getItem('panier') || '[]');
+          const prod = panier.find(item => item.id === id);
+          if (prod) {
+            prod.quantite -= 1;
+            if (prod.quantite <= 0) {
+              panier = panier.filter(item => item.id !== id);
+            }
+            localStorage.setItem('panier', JSON.stringify(panier));
+            renderPanier();
+          }
+        });
+      });
+      zone.querySelectorAll('.plus-qt').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-id');
+          let panier = JSON.parse(localStorage.getItem('panier') || '[]');
+          const prod = panier.find(item => item.id === id);
+          if (prod) {
+            prod.quantite += 1;
+            localStorage.setItem('panier', JSON.stringify(panier));
+            renderPanier();
+          }
+        });
+      });
+    }
+    renderPanier();
+  </script>
+</LayoutWithHero>

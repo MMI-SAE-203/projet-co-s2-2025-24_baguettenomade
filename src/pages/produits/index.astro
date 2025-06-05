@@ -1,11 +1,28 @@
 ---
 import LayoutWithHero from '../../layouts/LayoutWithHero.astro';
-import { AllProduits } from '../../../backend/backend.mjs';
 import CardProduits from '../../components/CardProduits.astro';
-import Produits from '../../assets/img/hero.webp';	
+import { AllProduits, filterByCategory } from '../../../backend/backend.mjs';
+import Produits from '../../assets/img/hero.webp';
 import { Picture } from 'astro:assets';
 import paincoeur from '../../assets/img/paincoeur.webp';
-const produits = await AllProduits();
+
+let categories = ['Tout', 'pain', 'pâtisserie', 'viennoiserie'];
+let produit = [];
+let selectedCategorie = 'Tout';
+
+if (Astro.request.method === 'GET') {
+    produit = await AllProduits();
+    selectedCategorie = 'Tout';
+} else if (Astro.request.method === 'POST') {
+    const data = await Astro.request.formData();
+    selectedCategorie = data.get("categorie") || 'Tout';
+    if (selectedCategorie === 'Tout') {
+        produit = await AllProduits();
+    } else {
+        const response = await filterByCategory(selectedCategorie);
+        produit = response.produits;
+    }
+}
 ---
 
 <LayoutWithHero title="Boulangerie de la Semaine" src={Produits} alt="Pain frais et artisanal">
@@ -25,17 +42,65 @@ const produits = await AllProduits();
     </div>
   </section>
 
-  <div class="container mx-auto px-4 py-12">
-    <h2 class="text-3xl font-bold text-center text-amber-900 mb-12">Tous nos produits</h2>
-    
-    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {produits.length > 0 ? (
-        produits.map((produit) => (
-          <CardProduits {...produit} />
-        ))
-      ) : (
-        <p class="col-span-full text-center py-12 text-amber-800 text-lg">Aucun produit n'a été trouvé.</p>
-      )}
+  <div class="container mx-auto px-4 py-12 flex gap-8">
+    <aside class="bg-[#8B6B36] p-6 rounded-sm flex flex-col gap-4 min-w-[220px] max-w-xs h-fit">
+      <form action="/produits" method="post">
+        <span class="text-white font-medium mb-2 block">Filtrer par catégorie :</span>
+        {categories.map((categorie) => (
+          <label class="flex items-center gap-2 text-white font-medium" style="user-select:none;">
+            <input
+              type="radio"
+              name="categorie"
+              value={categorie}
+              class="accent-[#E0AB5B]"
+              checked={selectedCategorie === categorie}
+              onchange="this.form.submit()"
+            />
+            {categorie === 'Tout' ? 'Tous les articles' : categorie.charAt(0).toUpperCase() + categorie.slice(1)}
+          </label>
+        ))}
+        <noscript>
+          <input type="submit" value="Filtrer" class="bg-[#E0AB5B] text-white px-4 py-1 rounded cursor-pointer mt-4" />
+        </noscript>
+      </form>
+    </aside>
+    <div class="flex-1">
+      <h2 class="text-3xl font-bold text-center text-amber-900 mb-12">Tous nos produits</h2>
+      <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {produit.length > 0 ? (
+          produit.map((produits) => (
+            <CardProduits {...produits} categorie={produits.categorie} />
+          ))
+        ) : (
+          <p class="col-span-full text-center py-12 text-amber-800 text-lg">Aucun produit n'a été trouvé.</p>
+        )}
+      </div>
     </div>
   </div>
 </LayoutWithHero>
+
+
+<script type="module">
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.ajouter-panier').forEach(btn => {
+      // Pour éviter d'ajouter plusieurs fois le listener
+      if (btn.dataset.listener) return;
+      btn.dataset.listener = "ok";
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-id');
+        const nom = btn.getAttribute('data-nom');
+        const prix = btn.getAttribute('data-prix');
+        let panier = JSON.parse(localStorage.getItem('panier') || '[]');
+        const exist = panier.find(item => item.id === id);
+        if (exist) {
+          exist.quantite += 1;
+        } else {
+          panier.push({ id, nom, prix, quantite: 1 });
+        }
+        localStorage.setItem('panier', JSON.stringify(panier));
+        btn.textContent = "Ajouté !";
+        setTimeout(() => btn.textContent = "+ AJOUTER AU PANIER", 1000);
+      });
+    });
+  });
+</script>
